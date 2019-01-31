@@ -43,18 +43,12 @@ public protocol ServiceRequest {
     
     /// Optional timeout interval if necessary to have one other than HTTP/1.1 standard of 2 minutes.
     var timeoutInterval: TimeInterval? { get }
-    
-    /// A constructor that will help build the request.
-//    var requestConstructor: RequestConstructor { get }
-    
+
     /// Whether this request is gated by oAuth. Default is true.
     var requiresOAuthCredentials: Bool { get }
     
     /// The JSONDecoder to use. Defaults to `APIClientConfiguration.jsonDecoder`.
     var jsonDecoder: JSONDecoder { get }
-    
-    /// An optional function that translates JSON errors to typed Swift Errors.
-//    var errorTranslator: FailureResponseClosure? { get }
     
     /// Builds the underlying data task and `resume`s it. This method is implemented by the default
     /// extension.

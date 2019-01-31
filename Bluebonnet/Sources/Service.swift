@@ -24,11 +24,9 @@
 /// versions of an  API, or different services entirely. Each `ServiceRequest` can point to a
 /// different `Service`.
 ///
-/// - Use extensions to define a new `Service`:
+/// - After defining your `Server.Map` instances, define your `Service`s:
 /// ```
-/// extension Service {
-///     static let v1 = Service(serverMap: ..., contextRoot: ...)
-/// }
+/// let v1Service = Service(serverMap: mainServerMap, contextRoot: "v1")
 /// ```
 public struct Service<Env: Environment> {
     

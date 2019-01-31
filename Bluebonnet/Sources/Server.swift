@@ -23,7 +23,8 @@
 
 /// Represents a backend server. This is used to generate the base URLs for a `ServiceRequest`.
 ///
-/// - Extend this struct with your servers:
+/// - Tip - Extend this struct with your servers if you use them with multiple `Server.Map`
+/// instances:
 /// ```
 /// extension Server {
 ///     static let herokuStaging = Server(host: "myapp-staging.herokuapp.com")
@@ -46,28 +47,27 @@ extension Server: Equatable {
 }
 
 extension Server {
+    
     /// Stores a closure that allows you to define how to map an `Environment` to defined `Server`
     /// instance.
     ///
-    /// - Extend this struct to define your maps:
+    /// - After defining your `Server` instances, define your map:
     /// ```
-    /// extension Server.Map {
-    ///     static let main = Server.Map { environment in
-    ///         switch environment {
-    ///             case .staging:
-    ///                 return .herokuStaging
-    ///             case .production:
-    ///                 return .herokuProduction
-    ///         }
+    /// let mainServerMap = Server.Map { environment in
+    ///     switch environment {
+    ///         case .staging:
+    ///             return .herokuStaging
+    ///         case .production:
+    ///             return .herokuProduction
     ///     }
-    /// }
+    ///}
     /// ```
-    public struct Map<Env: Environment> {
-        internal let block: ((Env) -> Server)
+    public struct Map<Environment> {
+        internal let block: ((Environment) -> Server)
         
         /// Creates a new instance of `Server.Map` with the given block. See `Server.Map` for more
         /// info.
-        public init(_ block: @escaping ((Env) -> Server)) {
+        public init(_ block: @escaping ((Environment) -> Server)) {
             self.block = block
         }
     }
