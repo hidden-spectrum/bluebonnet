@@ -32,7 +32,7 @@
 ///     case production
 /// }
 /// ```
-public protocol Environment: RawRepresentable {
+public protocol Environment {
     
     /// This tracks the current environment. Set this before making any service requests. See
     /// `Environment` for more info.
