@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		F890FB802202B58F0099571D /* Bluebonnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F890FB762202B58F0099571D /* Bluebonnet.framework */; };
 		F890FB872202B58F0099571D /* Bluebonnet.h in Headers */ = {isa = PBXBuildFile; fileRef = F890FB792202B58F0099571D /* Bluebonnet.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F8FB4AD922036AB000832EB8 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AD822036AB000832EB8 /* Service.swift */; };
+		F8FB4ADC2203701200832EB8 /* Server.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4ADB2203701200832EB8 /* Server.swift */; };
+		F8FB4ADE220372A100832EB8 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4ADD220372A100832EB8 /* Environment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +32,9 @@
 		F890FB862202B58F0099571D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F8FB4AD4220367FC00832EB8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		F8FB4AD5220367FC00832EB8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		F8FB4AD822036AB000832EB8 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		F8FB4ADB2203701200832EB8 /* Server.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Server.swift; sourceTree = "<group>"; };
+		F8FB4ADD220372A100832EB8 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +114,9 @@
 			isa = PBXGroup;
 			children = (
 				F890FB792202B58F0099571D /* Bluebonnet.h */,
+				F8FB4ADD220372A100832EB8 /* Environment.swift */,
+				F8FB4ADB2203701200832EB8 /* Server.swift */,
+				F8FB4AD822036AB000832EB8 /* Service.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -197,6 +206,7 @@
 				TargetAttributes = {
 					F890FB752202B58F0099571D = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 					F890FB7E2202B58F0099571D = {
 						CreatedOnToolsVersion = 10.1;
@@ -243,6 +253,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8FB4ADC2203701200832EB8 /* Server.swift in Sources */,
+				F8FB4ADE220372A100832EB8 /* Environment.swift in Sources */,
+				F8FB4AD922036AB000832EB8 /* Service.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -389,6 +402,7 @@
 		F890FB8B2202B58F0099571D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -406,6 +420,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.theisholdings.bluebonnet;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -414,6 +429,7 @@
 		F890FB8C2202B58F0099571D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
@@ -439,6 +455,7 @@
 		F890FB8E2202B58F0099571D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E9KV23QHW5;
 				INFOPLIST_FILE = BluebonnetTests/Assets/Plists/Info.plist;
@@ -457,6 +474,7 @@
 		F890FB8F2202B58F0099571D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = E9KV23QHW5;
 				INFOPLIST_FILE = BluebonnetTests/Assets/Plists/Info.plist;
