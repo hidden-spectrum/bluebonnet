@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		F890FB802202B58F0099571D /* Bluebonnet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F890FB762202B58F0099571D /* Bluebonnet.framework */; };
 		F890FB872202B58F0099571D /* Bluebonnet.h in Headers */ = {isa = PBXBuildFile; fileRef = F890FB792202B58F0099571D /* Bluebonnet.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F8FB4AD22203664A00832EB8 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = F8FB4AD02203664A00832EB8 /* README.md */; };
-		F8FB4AD32203664A00832EB8 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = F8FB4AD12203664A00832EB8 /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,8 +27,8 @@
 		F890FB7A2202B58F0099571D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F890FB7F2202B58F0099571D /* BluebonnetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluebonnetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F890FB862202B58F0099571D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F8FB4AD02203664A00832EB8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../UIKitSwift/README.md; sourceTree = "<group>"; };
-		F8FB4AD12203664A00832EB8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = LICENSE; path = ../UIKitSwift/LICENSE; sourceTree = "<group>"; };
+		F8FB4AD4220367FC00832EB8 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		F8FB4AD5220367FC00832EB8 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +56,8 @@
 				F890FB782202B58F0099571D /* Bluebonnet */,
 				F890FB832202B58F0099571D /* BluebonnetTests */,
 				F890FB772202B58F0099571D /* Products */,
-				F8FB4AD12203664A00832EB8 /* LICENSE */,
-				F8FB4AD02203664A00832EB8 /* README.md */,
+				F8FB4AD4220367FC00832EB8 /* LICENSE */,
+				F8FB4AD5220367FC00832EB8 /* README.md */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,8 +226,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8FB4AD32203664A00832EB8 /* LICENSE in Resources */,
-				F8FB4AD22203664A00832EB8 /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
