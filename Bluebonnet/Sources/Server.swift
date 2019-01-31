@@ -26,8 +26,8 @@
 /// - Extend this struct with your servers:
 /// ```
 /// extension Server {
-///     static let herokuStaging = Server(host: "www.herokuapp.com/myapp-staging")
-///     static let herokuProduction = Server(host: "www.herokuapp.com/myapp")
+///     static let herokuStaging = Server(host: "myapp-staging.herokuapp.com")
+///     static let herokuProduction = Server(host: "myapp.herokuapp.com")
 /// }
 /// ```
 public struct Server: Codable {
