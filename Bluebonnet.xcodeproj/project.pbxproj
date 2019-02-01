@@ -15,7 +15,6 @@
 		F8FB4AE72203806700832EB8 /* ServiceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AE62203806700832EB8 /* ServiceRequest.swift */; };
 		F8FB4AEB2203AD7B00832EB8 /* Bluebonnet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AEA2203AD7B00832EB8 /* Bluebonnet.swift */; };
 		F8FB4AED2203ADB000832EB8 /* Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AEC2203ADB000832EB8 /* Logging.swift */; };
-		F8FB4AEF2203B3A900832EB8 /* ServiceResponseComponents.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AEE2203B3A900832EB8 /* ServiceResponseComponents.swift */; };
 		F8FB4AF12203B77500832EB8 /* URLQueryEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AF02203B77500832EB8 /* URLQueryEncoder.swift */; };
 		F8FB4AF32203B8D300832EB8 /* HTTP.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AF22203B8D300832EB8 /* HTTP.swift */; };
 		F8FB4AF52203BDB000832EB8 /* Coders+Bluebonnet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8FB4AF42203BDB000832EB8 /* Coders+Bluebonnet.swift */; };
@@ -47,7 +46,6 @@
 		F8FB4AE62203806700832EB8 /* ServiceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceRequest.swift; sourceTree = "<group>"; };
 		F8FB4AEA2203AD7B00832EB8 /* Bluebonnet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bluebonnet.swift; sourceTree = "<group>"; };
 		F8FB4AEC2203ADB000832EB8 /* Logging.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logging.swift; sourceTree = "<group>"; };
-		F8FB4AEE2203B3A900832EB8 /* ServiceResponseComponents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResponseComponents.swift; sourceTree = "<group>"; };
 		F8FB4AF02203B77500832EB8 /* URLQueryEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLQueryEncoder.swift; sourceTree = "<group>"; };
 		F8FB4AF22203B8D300832EB8 /* HTTP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTP.swift; sourceTree = "<group>"; };
 		F8FB4AF42203BDB000832EB8 /* Coders+Bluebonnet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Coders+Bluebonnet.swift"; sourceTree = "<group>"; };
@@ -142,7 +140,6 @@
 				F8FB4ADB2203701200832EB8 /* Server.swift */,
 				F8FB4AD822036AB000832EB8 /* Service.swift */,
 				F8FB4AE62203806700832EB8 /* ServiceRequest.swift */,
-				F8FB4AEE2203B3A900832EB8 /* ServiceResponseComponents.swift */,
 				F8FB4AF02203B77500832EB8 /* URLQueryEncoder.swift */,
 			);
 			path = Sources;
@@ -288,7 +285,6 @@
 				F8FB4AF52203BDB000832EB8 /* Coders+Bluebonnet.swift in Sources */,
 				F8FB4ADC2203701200832EB8 /* Server.swift in Sources */,
 				F8FB4AF72203BDF600832EB8 /* DateFormatter+Bluebonnet.swift in Sources */,
-				F8FB4AEF2203B3A900832EB8 /* ServiceResponseComponents.swift in Sources */,
 				F8FB4AE72203806700832EB8 /* ServiceRequest.swift in Sources */,
 				F8FB4ADE220372A100832EB8 /* Environment.swift in Sources */,
 				F8FB4AD922036AB000832EB8 /* Service.swift in Sources */,

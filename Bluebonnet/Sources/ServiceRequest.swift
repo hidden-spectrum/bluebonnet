@@ -21,6 +21,20 @@
 //
 
 
+/// Returned in the completionHandler for all ServiceRequests, this indicates a success with the
+/// typed content or failure with any errors.
+public enum ServiceRequestResult<ServiceResponseContent: Decodable> {
+    case success(ServiceResponseContent)
+    case failure(Error)
+}
+
+
+/// A type representing an empty Encodable/Decodable type. Use this for `ServiceRequest`s that have
+/// empty parameters or body data.
+public struct Empty: Codable {
+}
+
+
 public protocol ServiceRequest {
     associatedtype Env: Environment
     associatedtype Parameters: Encodable
@@ -60,6 +74,10 @@ public protocol ServiceRequest {
 }
 
 extension ServiceRequest {
+    public var parameters: Parameters? {
+        return nil
+    }
+    
     public var authentication: Authentication {
         return .none
     }
