@@ -21,15 +21,8 @@
 //
 
 
-/// Returned in the completionHandler for all ServiceRequests, this indicates a success with the
-/// typed content or failure with any errors.
-public enum ServiceRequestResult<ServiceResponseContent: Decodable> {
-    case success(ServiceResponseContent)
-    case failure(Error)
-}
-
-
-/// A type representing an empty Decodable type. Use this for `ServiceRequest`s that have empty
-/// body data.
-public struct Empty: Decodable {
+public enum Authentication {
+    case none
+    case basic(username: String, password: String)
+    case bearer(token: String)
 }
