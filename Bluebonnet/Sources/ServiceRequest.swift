@@ -36,10 +36,18 @@ public struct Empty: Codable {
 
 
 public protocol ServiceRequest {
+    
+    /// The environment of the `Service` used in `service` parameter. This will be auto-defined by
+    /// the compiler.
     associatedtype Env: Environment
+    
+    /// The type you are using for parameters of the request. Use `Empty` if there are none.
     associatedtype Parameters: Encodable
+    
+    /// The type that the response's body should be decoded into.
     associatedtype ServiceResponseContent: Decodable
     
+    /// Closure used for `completionHandler` on `start(...)` and `decode(...)` methods.
     typealias ServiceRequestResultClosure = (ServiceRequestResult<ServiceResponseContent>) -> Void
     
     /// The HTTP method to use for this request. See `HTTPMethod` for more info.
