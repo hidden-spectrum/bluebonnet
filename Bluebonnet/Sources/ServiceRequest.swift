@@ -200,10 +200,6 @@ extension ServiceRequest {
         }
     }
     
-    private func urlAbsoluteString(for response: URLResponse?) -> String {
-        return response?.url?.absoluteString ?? "UNKNOWN URL"
-    }
-    
     private func stringFromData(_ data: Data?) -> String {
         return String(data: data ?? Data(), encoding: .utf8) ?? "<None>"
     }
