@@ -70,7 +70,7 @@ public protocol ServiceRequest {
     
     /// Decodes the response data. Only called on a successful response (2xx). If
     /// `ServiceResponseContent` == Empty then this method always returns `.success(Empty())`.
-    func decodeResponseBody(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent>
+    func decodeResponseContent(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent>
 }
 
 extension ServiceRequest {
@@ -123,7 +123,7 @@ extension ServiceRequest {
                     return
                 }
                 
-                mainQueueCompletionHandler(self.decodeResponse(data: data, from: request))
+                mainQueueCompletionHandler(self.decodeResponseContent(data: data, from: request))
             }
             
             dataTask.resume()
@@ -172,7 +172,7 @@ extension ServiceRequest {
         return request
     }
     
-    public func decodeResponse(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
+    public func decodeResponseContent(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
         guard let data = data, !data.isEmpty else {
             return .failure(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
         }
