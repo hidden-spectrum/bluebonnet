@@ -22,7 +22,6 @@
 
 
 public enum Authentication {
-    case none
     case basic(username: String, password: String)
     case bearer(token: String)
 }

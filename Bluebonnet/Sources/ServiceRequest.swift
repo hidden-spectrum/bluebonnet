@@ -51,11 +51,12 @@ public protocol ServiceRequest {
     /// The path for this request, appeneded to the baseUrl returned by `service`.
     var path: String { get }
     
-    /// Any parameters to send with this request.
+    /// Any parameters to send with this request. Defaults to nil.
     var parameters: Parameters? { get }
     
-    /// Whether this request is gated by oAuth. Default is true.
-    var authentication: Authentication { get }
+    /// The authentication method to use for this request. There is no default so that you can
+    /// set one via an extension in your application.
+    var authentication: Authentication? { get }
     
     /// The JSONEncoder to use for `POST`/`PUT`/`PATCH` requests. Defaults to
     /// `JSONEncoder.bluebonnetDefault`.
@@ -76,10 +77,6 @@ public protocol ServiceRequest {
 extension ServiceRequest {
     public var parameters: Parameters? {
         return nil
-    }
-    
-    public var authentication: Authentication {
-        return .none
     }
     
     public var jsonEncoder: JSONEncoder {
@@ -158,15 +155,15 @@ extension ServiceRequest {
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
         
-        switch self.authentication {
-        case .basic(let username, let password):
-            let combinedCredentials = username + ":" + password
-            let encodedCredentials = String(data: Data(base64Encoded: combinedCredentials)!, encoding: .utf8)!
-            request.setValue("Basic \(encodedCredentials)", forHTTPHeaderField: "Authorization")
-        case .bearer(let token):
-            request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        case .none:
-            break
+        if let authentication = self.authentication {
+            switch authentication {
+            case .basic(let username, let password):
+                let combinedCredentials = username + ":" + password
+                let encodedCredentials = String(data: Data(base64Encoded: combinedCredentials)!, encoding: .utf8)!
+                request.setValue("Basic \(encodedCredentials)", forHTTPHeaderField: "Authorization")
+            case .bearer(let token):
+                request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+            }
         }
         
         return request
