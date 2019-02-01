@@ -41,13 +41,10 @@ public class URLQueryEncoder {
     // MARK: Encoding
     
     /// Invoke this method on a new instance to attempt to encode the given value.
-    public func encode<T: Encodable>(_ value: T) throws -> [URLQueryItem] {
+    public func encode<T: Encodable>(_ value: T, baseEncoder: JSONEncoder) throws -> [URLQueryItem] {
         // Lean on the JSON encoder to do the heavy lifting of converting the value to a useable container
         // This is hacky, but it works and requires less maintenance than rolling our own Encoder
-        let jsonEncoder = JSONEncoder()
-        jsonEncoder.dateEncodingStrategy = .iso8601
-        jsonEncoder.keyEncodingStrategy = .convertToSnakeCase
-        let jsonData = try jsonEncoder.encode(value)
+        let jsonData = try baseEncoder.encode(value)
         let container = try JSONSerialization.jsonObject(with: jsonData, options: [])
         
         guard let dictionaryContainer = container as? [String: Any] else {

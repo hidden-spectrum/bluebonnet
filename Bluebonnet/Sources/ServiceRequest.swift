@@ -125,7 +125,7 @@ extension ServiceRequest {
         }
         
         if let parameters = self.parameters, self.method == .get {
-            urlComponents.queryItems = try URLQueryEncoder().encode(parameters)
+            urlComponents.queryItems = try URLQueryEncoder().encode(parameters, baseEncoder: self.jsonEncoder)
         }
         
         guard let completeUrl = urlComponents.url else {
