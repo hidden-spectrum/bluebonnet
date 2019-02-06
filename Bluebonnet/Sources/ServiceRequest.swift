@@ -75,7 +75,7 @@ public protocol ServiceRequest {
     
     /// Builds the underlying data task and `resume`s it. This method is implemented by the default
     /// extension.
-    func start(retryIfUnauthorized: Bool, completionHandler: ServiceRequestResultClosure?) -> URLSessionDataTask?
+    func start(completionHandler: ServiceRequestResultClosure?) -> URLSessionDataTask?
     
     /// Decodes the response data. Only called on a successful response (2xx). If
     /// `ServiceResponseContent` == Empty then this method always returns `.success(Empty())`.
@@ -96,7 +96,7 @@ extension ServiceRequest {
     }
     
     @discardableResult
-    public func start(retryIfUnauthorized: Bool = true, completionHandler: ServiceRequestResultClosure? = nil) -> URLSessionDataTask? {
+    public func start(completionHandler: ServiceRequestResultClosure? = nil) -> URLSessionDataTask? {
         do {
             let request = try self.urlRequest()
             
