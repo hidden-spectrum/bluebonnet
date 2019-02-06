@@ -30,9 +30,8 @@ public struct Bluebonnet {
 
 
 /// Errors specific to Bluebonnet.
-enum BluebonnetError: Error {
+public enum BluebonnetError: Error {
     case couldNotGenerateRequestURL
-    case missingRequiredOAuthCredentials
     case receivedNonHTTPURLResponse
     case unexpectedlyReceivedEmptyResponseBody
     case unexpectedStatusCode(HTTPStatusCode)
