@@ -194,10 +194,10 @@ extension ServiceRequest {
     private func logIssue(from request: URLRequest, error: Error? = nil, response: URLResponse? = nil, responseData: Data? = nil) {
         bb_log_error(
             """
-            \n%{public}s
+            \n%{public}@
 
             Request:
-            %{public}s %{public}s
+            %{public}@ %{public}@
             """,
             String(describing: error),
             request.httpMethod ?? "",
@@ -205,14 +205,14 @@ extension ServiceRequest {
         )
         
         request.allHTTPHeaderFields?.forEach { key, value in
-            bb_log_error("\t%{public}s: %@", key, value)
+            bb_log_error("\t%{public}@: %@", key, value)
         }
         
         if let response = response as? HTTPURLResponse {
             bb_log_error(
                 """
                 \nResponse:
-                %{public}s
+                %{public}@
 
                 Response Data:
                 %@
