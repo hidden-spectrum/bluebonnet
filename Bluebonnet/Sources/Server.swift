@@ -32,10 +32,21 @@
 /// }
 /// ```
 public struct Server: Codable {
-    internal let host: String
+    
+    /// The connection protocol to use when generating the URL for this server.
+    public let connectionProtocol: ConnectionProtocol
+    
+    /// The server's host name.
+    public let host: String
     
     /// Creates a new instance of `Server` with the given host.
-    public init(host: String) {
+    ///
+    /// - Parameters:
+    ///     - connectionProtocol: The protocol to use when generating the URL for this server. See
+    ///     `Server.ConnectionProtocol` for more info.
+    ///     - host: The server's host name, such as `www.example.com`.
+    public init(_ connectionProtocol: ConnectionProtocol = .https, host: String) {
+        self.connectionProtocol = connectionProtocol
         self.host = host
     }
 }
@@ -70,5 +81,15 @@ extension Server {
         public init(_ block: @escaping ((Environment) -> Server)) {
             self.block = block
         }
+    }
+    
+    /// Possible connection protocols to a `Server`.
+    public enum ConnectionProtocol: String, Codable {
+        
+        /// Non-secure HTTP protocol.
+        case http
+        
+        /// Secure HTTPS protocol.
+        case https
     }
 }

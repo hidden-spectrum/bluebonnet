@@ -44,7 +44,8 @@ public struct Service<Env: Environment> {
             fatalError("Attempted to generate a base URL when no current environment has been set")
         }
         
-        var urlString = "https://" + self.serverMap.block(environment).host
+        let server = self.serverMap.block(environment)
+        var urlString = server.connectionProtocol.rawValue + "://" + server.host
         if let contextRoot = self.contextRoot {
             urlString += "/" + contextRoot
         }
