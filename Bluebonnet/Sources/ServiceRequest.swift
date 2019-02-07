@@ -197,7 +197,7 @@ extension ServiceRequest {
         os_log("Request: %{public}@ %{public}@", log: .bluebonnet, type: .default, request.httpMethod ?? "<UNKNOWN HTTP METHOD>", request.debugDescription)
         
         request.allHTTPHeaderFields?.forEach { key, value in
-            os_log("%{public}@: %@", log: .bluebonnet, type: .default, key, value)
+            os_log("\t%{public}@: %@", log: .bluebonnet, type: .default, key, value)
         }
         
         if let response = response as? HTTPURLResponse {
