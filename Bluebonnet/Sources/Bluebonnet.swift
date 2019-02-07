@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import os.log
+
 
 /// This type holds all global configuration options and miscellaneous variables.
 public struct Bluebonnet {
@@ -35,4 +37,11 @@ public enum BluebonnetError: Error {
     case receivedNonHTTPURLResponse
     case unexpectedlyReceivedEmptyResponseBody
     case unexpectedStatusCode(HTTPStatusCode)
+}
+
+
+internal extension OSLog {
+    
+    /// Log for `os_log` calls.
+    internal static let bluebonnet = OSLog(subsystem: "com.theisholdings.bluebonnet", category: "Bluebonnet")
 }

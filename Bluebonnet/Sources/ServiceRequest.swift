@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import os.log
+
 
 /// Returned in the completionHandler for all ServiceRequests, this indicates a success with the
 /// typed content or failure with any errors.
@@ -192,25 +194,16 @@ extension ServiceRequest {
     }
     
     private func logIssue(from request: URLRequest, error: Error? = nil, response: URLResponse? = nil, responseData: Data? = nil) {
-        bb_log_error("%{public}@", error.debugDescription)
-        bb_log_error("Request:\n%{public}@ %{public}@\n", request.httpMethod ?? "<UNKNOWN METHOD>", request.debugDescription)
+        os_log("ServiceRequest error: %{public}@", log: .bluebonnet, type: .error, error.debugDescription)
+        os_log("Request: %{public}@ %{public}@", log: .bluebonnet, type: .default, request.httpMethod ?? "<UNKNOWN HTTP METHOD>", request.debugDescription)
         
         request.allHTTPHeaderFields?.forEach { key, value in
-            bb_log_error("\t%{public}@: %@", key, value)
+            os_log("\t%{public}: %@", log: .bluebonnet, type: .default, key, value)
         }
         
         if let response = response as? HTTPURLResponse {
-            bb_log_error(
-                """
-                \nResponse:
-                %{public}@
-
-                Response Data:
-                %@
-                """,
-                response.debugDescription,
-                self.stringFromData(responseData)
-            )
+            os_log("Response: %{public}@", log: .bluebonnet, type: .default, response.debugDescription)
+            os_log("Response Data: %@", log: .bluebonnet, type: .default, self.stringFromData(responseData))
         }
     }
     
