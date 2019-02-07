@@ -168,9 +168,8 @@ extension ServiceRequest {
         if let authentication = self.authentication {
             switch authentication {
             case .basic(let username, let password):
-                let combinedCredentials = username + ":" + password
-                let encodedCredentials = String(data: Data(base64Encoded: combinedCredentials)!, encoding: .utf8)!
-                request.setValue("Basic \(encodedCredentials)", forHTTPHeaderField: "Authorization")
+                let credentialsData = "\(username):\(password)".data(using: .utf8)!
+                request.setValue("Basic \(credentialsData.base64EncodedString())", forHTTPHeaderField: "Authorization")
             case .bearer(let token):
                 request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             }
