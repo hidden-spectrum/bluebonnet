@@ -199,7 +199,7 @@ extension ServiceRequest {
             Request:
             %{public}@ %{public}@
             """,
-            String(describing: error),
+            error.debugDescription,
             request.httpMethod ?? "",
             request.debugDescription
         )
