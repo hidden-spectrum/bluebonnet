@@ -62,7 +62,7 @@ public protocol ServiceRequest {
     var path: String { get }
     
     /// Any parameters to send with this request. Defaults to nil.
-    var parameters: Parameters? { get }
+    var parameters: Parameters? { get set }
     
     /// The authentication method to use for this request. There is no default so that you can
     /// set one via an extension in your application.
