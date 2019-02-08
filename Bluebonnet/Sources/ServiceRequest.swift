@@ -81,7 +81,7 @@ public protocol ServiceRequest {
     
     /// Decodes the response data. Only called on a successful response (2xx). If
     /// `ServiceResponseContent` == Empty then this method always returns `.success(Empty())`.
-    func decodeResponseContent(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent>
+    func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) -> ServiceRequestResult<ServiceResponseContent>
 }
 
 extension ServiceRequest {
@@ -110,14 +110,14 @@ extension ServiceRequest {
             
             let dataTask = Bluebonnet.urlSession.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    self.logIssue(from: request, error: error, response: response)
+                    self.logError(error, from: request, response: response)
                     mainQueueCompletionHandler(.failure(error))
                     return
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     let error = BluebonnetError.receivedNonHTTPURLResponse
-                    self.logIssue(from: request, error: error, response: response)
+                    self.logError(error, from: request, response: response)
                     mainQueueCompletionHandler(.failure(error))
                     return
                 }
@@ -125,12 +125,13 @@ extension ServiceRequest {
                 let httpStatusCode = HTTPStatusCode(rawValue: httpResponse.statusCode) ?? .unknown
                 let successStatusCodes: [HTTPStatusCode] = [.success, .created, .noContent, .accepted]
                 guard successStatusCodes.contains(httpStatusCode) else {
-                    self.logIssue(from: request, response: response, responseData: data)
-                    mainQueueCompletionHandler(.failure(BluebonnetError.unexpectedStatusCode(httpStatusCode)))
+                    let error = BluebonnetError.unexpectedStatusCode(httpStatusCode)
+                    self.logError(error, from: request, response: httpResponse, responseData: data)
+                    mainQueueCompletionHandler(.failure(error))
                     return
                 }
                 
-                mainQueueCompletionHandler(self.decodeResponseContent(data: data, from: request))
+                mainQueueCompletionHandler(self.decodeResponseContent(from: data, in: httpResponse, for: request))
             }
             
             dataTask.resume()
@@ -178,7 +179,7 @@ extension ServiceRequest {
         return request
     }
     
-    public func decodeResponseContent(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
+    public func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
         guard let data = data, !data.isEmpty else {
             return .failure(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
         }
@@ -187,13 +188,13 @@ extension ServiceRequest {
             let responseModel = try self.jsonDecoder.decode(ServiceResponseContent.self, from: data)
             return .success(responseModel)
         } catch let error {
-            self.logIssue(from: request, error: error)
+            self.logError(error, from: request, response: response, responseData: data)
             return .failure(error)
         }
     }
     
-    private func logIssue(from request: URLRequest, error: Error? = nil, response: URLResponse? = nil, responseData: Data? = nil) {
-        os_log("ServiceRequest error: %{public}@", log: .bluebonnet, type: .error, error.debugDescription)
+    private func logError(_ error: Error, from request: URLRequest, response: URLResponse? = nil, responseData: Data? = nil) {
+        os_log("ERROR: %{public}@", log: .bluebonnet, type: .error, String(describing: error))
         os_log("Request: %{public}@ %{public}@", log: .bluebonnet, type: .default, request.httpMethod ?? "<UNKNOWN HTTP METHOD>", request.debugDescription)
         
         request.allHTTPHeaderFields?.forEach { key, value in
@@ -212,7 +213,7 @@ extension ServiceRequest {
 }
 
 extension ServiceRequest where ServiceResponseContent == Empty {
-    public func decodeResponse(data: Data?, from request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
+    public func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
         return .success(Empty())
     }
 }
