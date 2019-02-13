@@ -93,8 +93,14 @@ extension ServiceRequest {
         return .bluebonnetDefault
     }
     
+    private func sift(_ error: Error) -> Error {
+        return ServiceErrorSifter.shared.sift(error)
+    }
+    
     @discardableResult
     public func start(completionHandler: ServiceRequestResultClosure? = nil) -> URLSessionDataTask? {
+
+        
         do {
             let request = try self.urlRequest()
             
@@ -107,14 +113,14 @@ extension ServiceRequest {
             let dataTask = Bluebonnet.urlSession.dataTask(with: request) { data, response, error in
                 if let error = error {
                     self.logError(error, from: request, response: response)
-                    mainQueueCompletionHandler(.failure(error))
+                    mainQueueCompletionHandler(.failure(self.sift(error)))
                     return
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     let error = BluebonnetError.receivedNonHTTPURLResponse
                     self.logError(error, from: request, response: response)
-                    mainQueueCompletionHandler(.failure(error))
+                    mainQueueCompletionHandler(.failure(self.sift(error)))
                     return
                 }
                 
@@ -123,7 +129,7 @@ extension ServiceRequest {
                 guard successStatusCodes.contains(httpStatusCode) else {
                     let error = BluebonnetError.unexpectedStatusCode(httpStatusCode)
                     self.logError(error, from: request, response: httpResponse, responseData: data)
-                    mainQueueCompletionHandler(.failure(error))
+                    mainQueueCompletionHandler(.failure(self.sift(error)))
                     return
                 }
                 
@@ -133,8 +139,8 @@ extension ServiceRequest {
             dataTask.resume()
             return dataTask
             
-        } catch let error {
-            completionHandler?(.failure(error))
+        } catch {
+            completionHandler?(.failure(self.sift(error)))
             return nil
         }
     }
@@ -177,7 +183,7 @@ extension ServiceRequest {
     
     public func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
         guard let data = data, !data.isEmpty else {
-            return .failure(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
+            return .failure(self.sift(BluebonnetError.unexpectedlyReceivedEmptyResponseBody))
         }
         
         do {
@@ -185,7 +191,7 @@ extension ServiceRequest {
             return .success(responseModel)
         } catch let error {
             self.logError(error, from: request, response: response, responseData: data)
-            return .failure(error)
+            return .failure(self.sift(error))
         }
     }
     

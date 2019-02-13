@@ -25,7 +25,7 @@ public extension JSONDecoder {
     
     /// Default decoder used for `ServiceRequest`s. Uses `.iso8601DateTimeWithMilliseconds` and
     /// `.convertFromSnakeCase`.
-    internal static let bluebonnetDefault: JSONDecoder = .custom(dateFormatter: .iso8601DateTimeWithMilliseconds, keyDecodingStrategy: .convertFromSnakeCase)
+    public static let bluebonnetDefault: JSONDecoder = .custom(dateFormatter: .iso8601DateTimeWithMilliseconds, keyDecodingStrategy: .convertFromSnakeCase)
     
     /// Convenience initializer.
     public static func custom(dateFormatter: DateFormatter, keyDecodingStrategy: KeyDecodingStrategy = .useDefaultKeys) -> JSONDecoder {
