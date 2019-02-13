@@ -93,8 +93,8 @@ extension ServiceRequest {
         return .bluebonnetDefault
     }
     
-    private func sift(_ error: Error) -> Error {
-        return ServiceErrorSifter.shared.sift(error)
+    private func sift(_ error: Error, with data: Data? = nil) -> Error {
+        return ServiceErrorSifter.shared.sift(error, responseData: data)
     }
     
     @discardableResult
@@ -113,14 +113,14 @@ extension ServiceRequest {
             let dataTask = Bluebonnet.urlSession.dataTask(with: request) { data, response, error in
                 if let error = error {
                     self.logError(error, from: request, response: response)
-                    mainQueueCompletionHandler(.failure(self.sift(error)))
+                    mainQueueCompletionHandler(.failure(self.sift(error, with: data)))
                     return
                 }
                 
                 guard let httpResponse = response as? HTTPURLResponse else {
                     let error = BluebonnetError.receivedNonHTTPURLResponse
                     self.logError(error, from: request, response: response)
-                    mainQueueCompletionHandler(.failure(self.sift(error)))
+                    mainQueueCompletionHandler(.failure(self.sift(error, with: data)))
                     return
                 }
                 
@@ -129,7 +129,7 @@ extension ServiceRequest {
                 guard successStatusCodes.contains(httpStatusCode) else {
                     let error = BluebonnetError.unexpectedStatusCode(httpStatusCode)
                     self.logError(error, from: request, response: httpResponse, responseData: data)
-                    mainQueueCompletionHandler(.failure(self.sift(error)))
+                    mainQueueCompletionHandler(.failure(self.sift(error, with: data)))
                     return
                 }
                 
@@ -191,7 +191,7 @@ extension ServiceRequest {
             return .success(responseModel)
         } catch let error {
             self.logError(error, from: request, response: response, responseData: data)
-            return .failure(self.sift(error))
+            return .failure(self.sift(error, with: data))
         }
     }
     
