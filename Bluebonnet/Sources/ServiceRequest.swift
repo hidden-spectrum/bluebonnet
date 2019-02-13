@@ -62,7 +62,7 @@ public protocol ServiceRequest {
     var path: String { get }
     
     /// Any parameters to send with this request. Defaults to nil.
-    var parameters: Parameters? { get set }
+    var parameters: Parameters { get }
     
     /// The authentication method to use for this request. There is no default so that you can
     /// set one via an extension in your application.
@@ -85,10 +85,6 @@ public protocol ServiceRequest {
 }
 
 extension ServiceRequest {
-    public var parameters: Parameters? {
-        return nil
-    }
-    
     public var jsonEncoder: JSONEncoder {
         return .bluebonnetDefault
     }
@@ -150,7 +146,7 @@ extension ServiceRequest {
             throw BluebonnetError.couldNotGenerateRequestURL
         }
         
-        if let parameters = self.parameters, self.method == .get {
+        if !(parameters is Empty) && self.method == .get {
             urlComponents.queryItems = try URLQueryEncoder().encode(parameters, baseEncoder: self.jsonEncoder)
         }
         
@@ -161,7 +157,7 @@ extension ServiceRequest {
         var request = URLRequest(url: completeUrl)
         request.httpMethod = self.method.rawValue
         
-        if let parameters = self.parameters, [.post, .patch, .put].contains(self.method) {
+        if !(parameters is Empty) && [.post, .patch, .put].contains(self.method) {
             request.httpBody = try self.jsonEncoder.encode(parameters)
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
@@ -215,5 +211,11 @@ extension ServiceRequest {
 extension ServiceRequest where ServiceResponseContent == Empty {
     public func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) -> ServiceRequestResult<ServiceResponseContent> {
         return .success(Empty())
+    }
+}
+
+extension ServiceRequest where Parameters == Empty {
+    public var parameters: Parameters {
+        return Empty()
     }
 }
