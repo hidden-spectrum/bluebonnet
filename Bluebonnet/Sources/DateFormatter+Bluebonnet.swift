@@ -28,21 +28,21 @@ public extension DateFormatter {
     /// For dates in the format of `yyyy-MM-dd'T'HH:mm:ssZ`.
     public static let iso8601DateTime: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         return dateFormatter
     }()
     
     /// For dates in the format of `yyyy-MM-dd'T'HH:mm:ss.SSSZ`.
     public static let iso8601DateTimeWithMilliseconds: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         return dateFormatter
     }()
     
     /// For dates in the format of `yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ`.
     public static let iso8601DateTimeWithMicroseconds: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
         return dateFormatter
     }()
 }

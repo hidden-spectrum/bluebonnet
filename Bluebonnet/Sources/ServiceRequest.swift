@@ -61,7 +61,7 @@ public protocol ServiceRequest {
     /// The path for this request, appeneded to the baseUrl returned by `service`.
     var path: String { get }
     
-    /// Any parameters to send with this request. Defaults to nil.
+    /// Any parameters to send with this request. Defaults to Empty.
     var parameters: Parameters { get }
     
     /// The authentication method to use for this request. There is no default so that you can
@@ -99,8 +99,6 @@ extension ServiceRequest {
     
     @discardableResult
     public func start(completionHandler: ServiceRequestResultClosure? = nil) -> URLSessionDataTask? {
-
-        
         do {
             let request = try self.urlRequest()
             
@@ -152,8 +150,8 @@ extension ServiceRequest {
             throw BluebonnetError.couldNotGenerateRequestURL
         }
         
-        if !(parameters is Empty) && self.method == .get {
-            urlComponents.queryItems = try URLQueryEncoder().encode(parameters, baseEncoder: self.jsonEncoder)
+        if !(self.parameters is Empty) && self.method == .get {
+            urlComponents.queryItems = try URLQueryEncoder().encode(self.parameters, baseEncoder: self.jsonEncoder)
         }
         
         guard let completeUrl = urlComponents.url else {
@@ -164,7 +162,7 @@ extension ServiceRequest {
         request.httpMethod = self.method.rawValue
         
         if !(parameters is Empty) && [.post, .patch, .put].contains(self.method) {
-            request.httpBody = try self.jsonEncoder.encode(parameters)
+            request.httpBody = try self.jsonEncoder.encode(self.parameters)
             request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         }
         
