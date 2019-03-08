@@ -28,7 +28,7 @@ public extension DateFormatter {
     /// For dates in the format of `yyyy-MM-dd'T'HH:mm:ssZ`.
     public static let iso8601DateTime: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssXXXXX"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         return dateFormatter
     }()
@@ -36,7 +36,7 @@ public extension DateFormatter {
     /// For dates in the format of `yyyy-MM-dd'T'HH:mm:ss.SSSZ`.
     public static let iso8601DateTimeWithMilliseconds: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSXXXXX"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         return dateFormatter
     }()
@@ -44,7 +44,7 @@ public extension DateFormatter {
     /// For dates in the format of `yyyy-MM-dd'T'HH:mm:ss.SSSSSSZ`.
     public static let iso8601DateTimeWithMicroseconds: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSS'Z'"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSXXXXX"
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         return dateFormatter
     }()
