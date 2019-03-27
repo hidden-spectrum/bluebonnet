@@ -43,5 +43,5 @@ public enum BluebonnetError: Error {
 internal extension OSLog {
     
     /// Log for `os_log` calls.
-    internal static let bluebonnet = OSLog(subsystem: "com.theisholdings.bluebonnet", category: "Bluebonnet")
+    static let bluebonnet = OSLog(subsystem: "com.theisholdings.bluebonnet", category: "Bluebonnet")
 }
