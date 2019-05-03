@@ -40,6 +40,7 @@
 		F890FB7A2202B58F0099571D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F890FB7F2202B58F0099571D /* BluebonnetTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BluebonnetTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F890FB862202B58F0099571D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8BF188C227CB33E0069305C /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		F8F6D6A82213D66D00F4627B /* ServiceErrorSifter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrorSifter.swift; sourceTree = "<group>"; };
 		F8F6D6AA2213D76000F4627B /* ServiceErrorHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrorHandler.swift; sourceTree = "<group>"; };
 		F8F6D6AC2213DA5700F4627B /* ServiceErrorTransformer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceErrorTransformer.swift; sourceTree = "<group>"; };
@@ -83,6 +84,7 @@
 				F890FB832202B58F0099571D /* BluebonnetTests */,
 				F890FB772202B58F0099571D /* Products */,
 				F8FB4AD4220367FC00832EB8 /* LICENSE */,
+				F8BF188C227CB33E0069305C /* Package.swift */,
 				F8FB4AD5220367FC00832EB8 /* README.md */,
 			);
 			sourceTree = "<group>";
