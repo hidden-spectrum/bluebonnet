@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// Conform to this protocol to handle an error from a `ServiceRequest`. This allows you to handle
 /// common errors in a global way. While the error will still be sent up to the `ServiceRequest`'s

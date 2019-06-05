@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// A protocol to define your server environments. This is typically an enum.
 ///

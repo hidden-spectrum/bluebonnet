@@ -20,6 +20,9 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
+
 /// Represents an API service, or a collection of APIs. This can be used to point to specific
 /// versions of an  API, or different services entirely. Each `ServiceRequest` can point to a
 /// different `Service`.

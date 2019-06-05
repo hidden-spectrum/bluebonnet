@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// Register your `ServiceErrorTransformer`s and `ServiceErrorHandler` with this type.
 /// - Note: An error is sent to the registered `ServiceErrorTransformer`s first (if any), and then

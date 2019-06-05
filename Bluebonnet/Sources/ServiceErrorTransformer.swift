@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// Conform to this protocol to transform an error from a `ServiceRequest` to another error. When a
 /// `ServiceRequest` receives anything other than a 2xx or Bluebonnet generates an error internally

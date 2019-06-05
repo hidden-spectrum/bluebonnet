@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// Represents a backend server. This is used to generate the base URLs for a `ServiceRequest`.
 ///

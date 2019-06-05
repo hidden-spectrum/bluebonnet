@@ -20,6 +20,8 @@
 //  THE SOFTWARE.
 //
 
+import Foundation
+
 
 /// Errors that can be thrown by `URLQueryEncoder`.
 enum URLQueryEncoderError: Error {
