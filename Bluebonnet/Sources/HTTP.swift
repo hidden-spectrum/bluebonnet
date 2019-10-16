@@ -40,8 +40,10 @@ public enum HTTPMethod: String {
 /// HTTP/1.1 status codes as defined by https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
 public enum HTTPStatusCode: Int {
     case unknown = 0 // Generic catchall, Not part of RFC spec
+    
     case `continue` = 100
     case switchingProtocols = 101
+    
     case success = 200
     case created = 201
     case accepted = 202
@@ -49,13 +51,16 @@ public enum HTTPStatusCode: Int {
     case noContent = 204
     case resetContent = 205
     case partialContent = 206
+    
     case multipleChoices = 300
     case movedPermanently = 301
     case found = 302
     case seeOther = 303
     case useProxy = 305
     case temporaryRedirect = 307
+    
     case badRequest = 400
+    case paymentRequired = 402
     case unauthorized = 401
     case forbidden = 403
     case notFound = 404
@@ -74,6 +79,7 @@ public enum HTTPStatusCode: Int {
     case unprocessableEntity = 422
     case tooManyRequests = 429
     case internalServerError = 500
+    
     case notImplemented = 501
     case badGateway = 502
     case serviceUnavailable = 503
