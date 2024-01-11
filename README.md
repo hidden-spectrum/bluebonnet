@@ -1,3 +1,3 @@
 # Bluebonnet
 
-A delcaritive networking framework built for modern JSON backend services.
+A declarative networking framework built for modern JSON backend services.
