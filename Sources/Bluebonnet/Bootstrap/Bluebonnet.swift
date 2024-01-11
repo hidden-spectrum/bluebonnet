@@ -11,6 +11,8 @@ public struct Bluebonnet {
     
     /// The `URLSesssion` to use. See `URLSession` for more info.
     public static var urlSession = URLSession.shared
+    
+    static let logger = Logger(subsystem: "io.hiddenspectrum.bluebonnet", category: "Bluebonnet")
 }
 
 
@@ -20,11 +22,4 @@ public enum BluebonnetError: Error {
     case receivedNonHTTPURLResponse
     case unexpectedlyReceivedEmptyResponseBody
     case unexpectedStatusCode(HTTPStatusCode)
-}
-
-
-internal extension OSLog {
-    
-    /// Log for `os_log` calls.
-    static let bluebonnet = OSLog(subsystem: "com.theisholdings.bluebonnet", category: "Bluebonnet")
 }

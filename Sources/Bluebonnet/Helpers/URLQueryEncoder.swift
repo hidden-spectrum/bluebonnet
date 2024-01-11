@@ -35,7 +35,7 @@ public class URLQueryEncoder {
             throw URLQueryEncoderError.topLevelContainerNotDictionary
         }
         
-        return self.queryItems(from: dictionaryContainer)
+        return queryItems(from: dictionaryContainer)
     }
     
     /// Once a value has been converted to a Swift container (in this case a dictionary) then use
@@ -46,7 +46,7 @@ public class URLQueryEncoder {
         
         for key in container.keys.sorted(by: <) {
             if let value = container[key] {
-                queryItems += self.queryItems(fromKey: key, value: value)
+                queryItems += buildQueryItems(fromKey: key, value: value)
             }
         }
         
@@ -55,16 +55,16 @@ public class URLQueryEncoder {
     
     /// This method recursively goes through key/value pairs and converts them to `URLQueryItem`s
     /// with the values converted to strings.
-    private func queryItems(fromKey key: String, value: Any) -> [URLQueryItem] {
+    private func buildQueryItems(fromKey key: String, value: Any) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         
         if let dictionary = value as? [String: Any] {
             for (nestedKey, value) in dictionary {
-                queryItems += self.queryItems(fromKey: "\(key)[\(nestedKey)]", value: value)
+                queryItems += buildQueryItems(fromKey: "\(key)[\(nestedKey)]", value: value)
             }
         } else if let array = value as? [Any] {
             for value in array {
-                queryItems += self.queryItems(fromKey: "\(key)[]", value: value)
+                queryItems += buildQueryItems(fromKey: "\(key)[]", value: value)
             }
         } else if let bool = value as? Bool {
             queryItems.append(URLQueryItem(name: key, value: bool ? "1" : "0"))

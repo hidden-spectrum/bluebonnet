@@ -69,6 +69,6 @@ public enum HTTPStatusCode: Int {
     case httpVersionNotSupported = 505
     
     public var stringValue: String {
-        return String(self.rawValue)
+        return String(rawValue)
     }
 }

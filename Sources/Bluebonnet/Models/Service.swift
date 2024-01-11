@@ -29,9 +29,9 @@ public struct Service<Env: Environment> {
             fatalError("Attempted to generate a base URL when no current environment has been set")
         }
         
-        let server = self.serverMap.block(environment)
+        let server = serverMap.block(environment)
         var urlString = server.connectionProtocol.rawValue + "://" + server.host
-        if let contextRoot = self.contextRoot {
+        if let contextRoot = contextRoot {
             urlString += "/" + contextRoot
         }
         return URL(string: urlString)!
