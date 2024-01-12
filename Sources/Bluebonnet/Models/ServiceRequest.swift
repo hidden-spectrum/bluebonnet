@@ -55,22 +55,22 @@ public protocol ServiceRequest {
     func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) throws -> ServiceResponseContent
 }
 
-extension ServiceRequest {
+public extension ServiceRequest {
     
-    public var jsonEncoder: JSONEncoder {
+    var jsonEncoder: JSONEncoder {
         return .bluebonnetDefault
     }
     
-    public var jsonDecoder: JSONDecoder {
+    var jsonDecoder: JSONDecoder {
         return .bluebonnetDefault
     }
     
-    private func sift(_ error: Error, with data: Data? = nil) -> Error {
+    func sift(_ error: Error, with data: Data? = nil) -> Error {
         return ServiceErrorSifter.shared.sift(error, responseData: data)
     }
     
     @discardableResult
-    public func start() async throws -> ServiceResponseContent? {
+    func start() async throws -> ServiceResponseContent? {
         let request = try urlRequest()
         
         do {
@@ -97,7 +97,25 @@ extension ServiceRequest {
         }
     }
     
-    private func urlRequest() throws -> URLRequest {
+    func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) throws -> ServiceResponseContent {
+        guard let data = data, !data.isEmpty else {
+            throw sift(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
+        }
+        
+        do {
+            return try jsonDecoder.decode(ServiceResponseContent.self, from: data)
+        } catch let error {
+            logError(error, from: request, response: response, responseData: data)
+            throw sift(error, with: data)
+        }
+    }
+}
+
+private extension ServiceRequest {
+    
+    var logger: Logger { Bluebonnet.logger }
+    
+    func urlRequest() throws -> URLRequest {
         let urlString = service.baseUrlForCurrentEnvironment.appendingPathComponent(path)
         
         guard var urlComponents = URLComponents(url: urlString, resolvingAgainstBaseURL: false) else {
@@ -133,30 +151,17 @@ extension ServiceRequest {
         return request
     }
     
-    public func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) throws -> ServiceResponseContent {
-        guard let data = data, !data.isEmpty else {
-            throw sift(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
-        }
-        
-        do {
-            return try jsonDecoder.decode(ServiceResponseContent.self, from: data)
-        } catch let error {
-            logError(error, from: request, response: response, responseData: data)
-            throw sift(error, with: data)
-        }
-    }
-    
     private func logError(_ error: Error, from request: URLRequest, response: URLResponse? = nil, responseData: Data? = nil) {
-        Bluebonnet.logger.error("\(String(describing: error))")
-        Bluebonnet.logger.info("Request: \(request.httpMethod ?? "<UNKNOWN HTTP METHOD>") \(request.debugDescription)")
+        logger.error("\(String(describing: error))")
+        logger.info("Request: \(request.httpMethod ?? "<UNKNOWN HTTP METHOD>") \(request.debugDescription)")
         
         request.allHTTPHeaderFields?.forEach { key, value in
-            Bluebonnet.logger.info("\t\(key): \(value)")
+            logger.info("\t\(key): \(value)")
         }
         
         if let response = response as? HTTPURLResponse {
-            Bluebonnet.logger.info("Response: \(response.debugDescription)")
-            Bluebonnet.logger.info("Response Data: \(stringFromData(responseData))")
+            logger.info("Response: \(response.debugDescription)")
+            logger.info("Response Data: \(stringFromData(responseData))")
         }
     }
     
