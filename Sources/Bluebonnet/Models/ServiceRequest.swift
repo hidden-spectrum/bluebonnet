@@ -48,7 +48,7 @@ public protocol ServiceRequest {
     var jsonDecoder: JSONDecoder { get }
     
     /// Builds the underlying data task loads data via the `URLSession`. This method is implemented by the default extension.
-    func start() -> ServiceResponseContent?
+    func start() async throws -> ServiceResponseContent?
     
     /// Decodes the response data. Only called on a successful response (2xx). If
     /// ``ServiceResponseContent`` == Empty then this method always returns ``Empty``.
