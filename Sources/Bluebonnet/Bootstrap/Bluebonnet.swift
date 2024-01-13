@@ -23,3 +23,18 @@ public enum BluebonnetError: Error {
     case unexpectedlyReceivedEmptyResponseBody
     case unexpectedStatusCode(HTTPStatusCode)
 }
+
+extension BluebonnetError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .couldNotGenerateRequestURL:
+            return "Could not generate request URL"
+        case .receivedNonHTTPURLResponse:
+            return "Received non-HTTP URL response"
+        case .unexpectedlyReceivedEmptyResponseBody:
+            return "Unexpectedly received empty response body"
+        case .unexpectedStatusCode(let statusCode):
+            return "Status code: \(statusCode.rawValue)"
+        }
+    }
+}

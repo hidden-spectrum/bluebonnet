@@ -93,7 +93,7 @@ public extension ServiceRequest {
             return try decodeResponseContent(from: data, in: httpResponse, for: request)
         } catch {
             logError(error, from: request, response: nil)
-            return nil
+            throw error
         }
     }
     
