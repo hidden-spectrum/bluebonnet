@@ -1,16 +1,23 @@
-// swift-tools-version:5.1
+// swift-tools-version:5.9
+//
+//  Copyright © 2024 Hidden Spectrum, LLC.
+//
+
 import PackageDescription
+
 
 let package = Package(
     name: "Bluebonnet",
-    platforms: [.iOS("11.0"), .macOS("10.13")],
+    platforms: [.iOS(.v15), .macOS(.v12)],
     products: [
-        .library(name: "Bluebonnet", targets: ["Bluebonnet"])
+        .library(
+            name: "Bluebonnet",
+            targets: ["Bluebonnet"]
+        )
     ],
     targets: [
         .target(
-            name: "Bluebonnet",
-            path: "Bluebonnet"
+            name: "Bluebonnet"
         )
     ]
 )
