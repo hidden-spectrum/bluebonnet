@@ -8,9 +8,12 @@ import PackageDescription
 
 let package = Package(
     name: "Bluebonnet",
-    platforms: [.iOS(.v14), .macOS(.v11)],
+    platforms: [.iOS(.v15), .macOS(.v12)],
     products: [
-        .library(name: "Bluebonnet", targets: ["Bluebonnet"])
+        .library(
+            name: "Bluebonnet",
+            targets: ["Bluebonnet"]
+        )
     ],
     targets: [
         .target(
