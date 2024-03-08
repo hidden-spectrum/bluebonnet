@@ -14,12 +14,13 @@ enum URLQueryEncoderError: Error {
 }
 
 
-/// This structure allows you to encode any value conforming to Encodable protocol into an array of
-/// URLQueryItems, which you can then pass to URLComponents instance to convert into a percent-encoded
-/// string.
-///
-/// References:
-/// - https://github.com/Alamofire/Alamofire/blob/master/Source/ParameterEncoding.swift
+/**
+ This structure allows you to encode any value conforming to Encodable protocol into an array of  `URLQueryItem`,
+ which you can then pass to `URLComponents` instance to convert into a percent-encoded  string.
+ 
+ References:
+ - https://github.com/Alamofire/Alamofire/blob/master/Source/ParameterEncoding.swift
+ */
 public class URLQueryEncoder {
     
     // MARK: Encoding
@@ -38,9 +39,9 @@ public class URLQueryEncoder {
         return queryItems(from: dictionaryContainer)
     }
     
-    /// Once a value has been converted to a Swift container (in this case a dictionary) then use
-    /// this method to convert to the final output needed (in this case, an array of
-    /// `URLQueryItem`s).
+    /**
+     Once a value has been converted to a Swift container (in this case a dictionary) then use this method to convert to the final output needed (in this case, an array of `URLQueryItem`).
+     */
     private func queryItems(from container: [String: Any]) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         
@@ -53,8 +54,9 @@ public class URLQueryEncoder {
         return queryItems
     }
     
-    /// This method recursively goes through key/value pairs and converts them to `URLQueryItem`s
-    /// with the values converted to strings.
+    /**
+     This method recursively goes through key/value pairs and converts them to `URLQueryItem` instances  with the values converted to strings.
+     */
     private func buildQueryItems(fromKey key: String, value: Any) -> [URLQueryItem] {
         var queryItems = [URLQueryItem]()
         

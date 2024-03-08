@@ -7,8 +7,9 @@ import Foundation
 
 public extension JSONDecoder {
     
-    /// Default decoder used for `ServiceRequest`s. Uses `.iso8601DateTimeWithMilliseconds` and
-    /// `.convertFromSnakeCase`.
+    /**
+     Default decoder used for ``ServiceRequest``s. Uses `.iso8601DateTimeWithMilliseconds` and `.convertFromSnakeCase`.
+     */
     static let bluebonnetDefault: JSONDecoder = .custom(dateFormatter: .iso8601DateTimeWithMilliseconds, keyDecodingStrategy: .convertFromSnakeCase)
     
     /// Convenience initializer.
@@ -23,8 +24,9 @@ public extension JSONDecoder {
 
 public extension JSONEncoder {
     
-    /// Standard encoder used for `ServiceRequest`s. Uses `.iso8601DateTimeWithMilliseconds` and
-    /// `.convertToSnakeCase`.
+    /**
+     Standard encoder used for `ServiceRequest`s. Uses `.iso8601DateTimeWithMilliseconds` and `.convertToSnakeCase`.
+     */
     static let bluebonnetDefault: JSONEncoder = .custom(dateFormatter: .iso8601DateTimeWithMilliseconds, keyEncodingStrategy: .convertToSnakeCase)
     
     /// Convenience initializer.

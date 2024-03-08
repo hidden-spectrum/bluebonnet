@@ -6,16 +6,16 @@ import Foundation
 import os.log
 
 
-/// A type representing an empty Encodable/Decodable type. Use this for ``ServiceRequest``s that have
-/// empty parameters or body data.
+/**
+ A type representing an empty Encodable/Decodable type. Use this for ``ServiceRequest``s that have  empty parameters or body data.
+ */
 public struct Empty: Codable {
 }
 
 
 public protocol ServiceRequest {
     
-    /// The environment of the ``Service`` used in `service` parameter. This will be auto-defined by
-    /// the compiler.
+    /// The environment of the ``Service`` used in ``ServiceRequest/service`` parameter. This will be auto-defined by the compiler.
     associatedtype Env: Environment
     
     /// The type you are using for parameters of the request. Use ``Empty`` if there are none.
@@ -40,18 +40,16 @@ public protocol ServiceRequest {
     /// set one via an extension in your application.
     var authentication: Authentication? { get }
     
-    /// The JSONEncoder to use for `POST`/`PUT`/`PATCH` requests. Defaults to
-    /// `JSONEncoder.bluebonnetDefault`.
+    /// The JSONEncoder to use for `POST`/`PUT`/`PATCH` requests. Defaults to `JSONEncoder/bluebonnetDefault`.
     var jsonEncoder: JSONEncoder { get }
     
-    /// The JSONDecoder to use. Defaults to `JSONDecoder.bluebonnetDefault`.
+    /// The JSONDecoder to use. Defaults to `JSONDecoder/bluebonnetDefault`.
     var jsonDecoder: JSONDecoder { get }
     
     /// Builds the underlying data task loads data via the `URLSession`. This method is implemented by the default extension.
     func start() async throws -> ServiceResponseContent?
     
-    /// Decodes the response data. Only called on a successful response (2xx). If
-    /// ``ServiceResponseContent`` == Empty then this method always returns ``Empty``.
+    /// Decodes the response data. Only called on a successful response (2xx). If `ServiceResponseContent` == Empty then this method always returns ``Empty``.
     func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) throws -> ServiceResponseContent
 }
 
