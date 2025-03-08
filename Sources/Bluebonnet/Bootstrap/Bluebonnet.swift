@@ -7,11 +7,10 @@ import os.log
 
 
 /// This type holds all global configuration options and miscellaneous variables.
-@MainActor
-public struct Bluebonnet {
+public struct Bluebonnet: Sendable {
     
     /// The `URLSesssion` to use. See `URLSession` for more info.
-    public static var urlSession = URLSession.shared
+    public static let urlSession = URLSession.shared
     
     static let logger = Logger(subsystem: "io.hiddenspectrum.bluebonnet", category: "Bluebonnet")
 }

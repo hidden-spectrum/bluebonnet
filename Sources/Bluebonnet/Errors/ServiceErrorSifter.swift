@@ -47,7 +47,7 @@ public class ServiceErrorSifter {
     // MARK: Sifting
     
     /// Sifts the given error and accompaning response data.
-    internal func sift(_ error: Error, responseData: Data? = nil) -> Error {
+    internal func sift(_ error: Error, responseData: Data? = nil) async -> Error {
         var finalError = error
         
         for transformer in transformers {

@@ -6,7 +6,7 @@ import Foundation
 
 
 /// HTTP/1.1 methods as defined by https://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html.
-public enum HTTPMethod: String {
+public enum HTTPMethod: String, Sendable {
     case connect = "CONNECT"
     case delete = "DELETE"
     case get = "GET"

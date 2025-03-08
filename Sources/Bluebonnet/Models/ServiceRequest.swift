@@ -9,11 +9,10 @@ import os.log
 /**
  A type representing an empty Encodable/Decodable type. Use this for ``ServiceRequest``s that have  empty parameters or body data.
  */
-public struct Empty: Codable {
+public struct Empty: Codable, Sendable {
 }
 
-@MainActor
-public protocol ServiceRequest {
+public protocol ServiceRequest: Sendable {
     
     /// The environment of the ``Service`` used in ``ServiceRequest/service`` parameter. This will be auto-defined by the compiler.
     associatedtype Env: Environment
@@ -63,8 +62,8 @@ public extension ServiceRequest {
         return .bluebonnetDefault
     }
     
-    func sift(_ error: Error, with data: Data? = nil) -> Error {
-        return ServiceErrorSifter.shared.sift(error, responseData: data)
+    func sift(_ error: Error, with data: Data? = nil) async -> Error {
+        return await ServiceErrorSifter.shared.sift(error, responseData: data)
     }
     
     @discardableResult
@@ -77,7 +76,7 @@ public extension ServiceRequest {
             guard let httpResponse = response as? HTTPURLResponse else {
                 let error = BluebonnetError.receivedNonHTTPURLResponse
                 logError(error, from: request, response: response)
-                throw sift(error, with: data)
+                throw await sift(error, with: data)
             }
             
             let httpStatusCode = HTTPStatusCode(rawValue: httpResponse.statusCode) ?? .unknown
@@ -85,26 +84,26 @@ public extension ServiceRequest {
             guard successStatusCodes.contains(httpStatusCode) else {
                 let error = BluebonnetError.unexpectedStatusCode(httpStatusCode)
                 logError(error, from: request, response: httpResponse, responseData: data)
-                throw sift(error, with: data)
+                throw await sift(error, with: data)
             }
             
-            return try decodeResponseContent(from: data, in: httpResponse, for: request)
+            return try await decodeResponseContent(from: data, in: httpResponse, for: request)
         } catch {
             logError(error, from: request, response: nil)
             throw error
         }
     }
     
-    func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) throws -> ServiceResponseContent {
+    func decodeResponseContent(from data: Data?, in response: URLResponse, for request: URLRequest) async throws -> ServiceResponseContent {
         guard let data = data, !data.isEmpty else {
-            throw sift(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
+            throw await sift(BluebonnetError.unexpectedlyReceivedEmptyResponseBody)
         }
         
         do {
             return try jsonDecoder.decode(ServiceResponseContent.self, from: data)
         } catch let error {
             logError(error, from: request, response: response, responseData: data)
-            throw sift(error, with: data)
+            throw await sift(error, with: data)
         }
     }
 }
